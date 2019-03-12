@@ -25,6 +25,7 @@ public class Main extends Application {
 			controller.setModel(model); 
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

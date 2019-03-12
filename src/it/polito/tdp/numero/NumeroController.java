@@ -4,19 +4,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.numero.model.NumeroModel;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-//gestione interfaccia
+//Inserisco in CONTROLLER cosa riguarda l'interfaccia
 public class NumeroController {
 
 	//
 	private NumeroModel model;
-	
-	
 
 	@FXML
 	private ResourceBundle resources;
@@ -28,7 +27,7 @@ public class NumeroController {
 	private HBox boxControllopartita;
 
 	@FXML
-	private TextField txtRimasti;
+	private TextField txtTentativiFatti;
 	// numero di tentativi rimasti ancora da provare
 
 	@FXML
@@ -52,7 +51,7 @@ public class NumeroController {
 		
 		txtMessaggi.clear();
 		txtTentativo.clear();
-		txtRimasti.setText(Integer.toString(model.getTMAX()));
+		//txtRimasti.setText(Integer.toString(0)); convertito con property
 		
 		// comunico al modello di iniziare una nuova partita
 		model.newGame();
@@ -79,7 +78,7 @@ public class NumeroController {
 		}
 		
 		if (!model.tentativoValido(tentativo))
-			txtMessaggi.appendText("Range non valido\n");
+			txtMessaggi.appendText("Range non valido o mossa già effettuata\n");
 		
 		int risultato = model.tentativo(tentativo);
 		if (risultato == 0)
@@ -94,7 +93,7 @@ public class NumeroController {
 			txtMessaggi.appendText("Tentativo troppo ALTO\n");
 
 		// Aggiornare interfaccia con n. tentativi rimasti
-		txtRimasti.setText(Integer.toString(model.getTMAX() - model.getTentativiFatti()));
+		//txtRimasti.setText(Integer.toString(model.getTentativiFatti())); convertito con property
 		
 		if (!model.isInGioco())
 		{	
@@ -115,14 +114,17 @@ public class NumeroController {
 	@FXML
 	void initialize() {
 		assert boxControllopartita != null : "fx:id=\"boxControllopartita\" was not injected: check your FXML file 'Numero.fxml'.";
-		assert txtRimasti != null : "fx:id=\"txtRimasti\" was not injected: check your FXML file 'Numero.fxml'.";
+		assert txtTentativiFatti != null : "fx:id=\"txtRimasti\" was not injected: check your FXML file 'Numero.fxml'.";
 		assert boxControlloTentativi != null : "fx:id=\"boxControlloTentativi\" was not injected: check your FXML file 'Numero.fxml'.";
 		assert txtTentativo != null : "fx:id=\"txtTentativo\" was not injected: check your FXML file 'Numero.fxml'.";
 		assert txtMessaggi != null : "fx:id=\"txtMessaggi\" was not injected: check your FXML file 'Numero.fxml'.";
 
 	}
 	
-	public void setModel(NumeroModel model) {
+	public void setModel(NumeroModel model) 
+	{
 		this.model = model;
+		
+		txtTentativiFatti.textProperty().bind(Bindings.convert(model.tentativiFattiProperty()));
 	}
 }
