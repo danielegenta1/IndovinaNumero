@@ -7,6 +7,7 @@ import it.polito.tdp.numero.model.NumeroModel;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -39,6 +40,9 @@ public class NumeroController {
 
 	@FXML
 	private TextArea txtMessaggi;
+	
+	@FXML
+	private ProgressBar progressBar;
 
 	@FXML
 	void handleNuovaPartita(ActionEvent event) {
@@ -110,6 +114,14 @@ public class NumeroController {
 		}
 
 	}
+	
+	@FXML
+	void handleAbbandona(ActionEvent event) 
+	{
+		
+		boxControllopartita.setDisable(false);
+		boxControlloTentativi.setDisable(true);	
+	}
 
 	@FXML
 	void initialize() {
@@ -126,5 +138,9 @@ public class NumeroController {
 		this.model = model;
 		
 		txtTentativiFatti.textProperty().bind(Bindings.convert(model.tentativiFattiProperty()));
+		progressBar.progressProperty().bind(model.tentativiFattiProperty());
+		
 	}
+	
+
 }

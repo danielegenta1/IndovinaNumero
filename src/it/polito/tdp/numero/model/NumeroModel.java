@@ -7,9 +7,10 @@ import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-//inserisco in MODEL cosa riguarda il gioco
+//inserisco in MODEL cosa riguarda la logica del gioco
 public class NumeroModel
 {
+	// implementazione estensione 4 del gioco (non sono ammessi tentativi duplicati)
 	private List<Integer>tentativi; //possibile sostituzione con hashmap, meno dispendioso
 	private final int NMAX = 100;
 	private final int TMAX = 8;
